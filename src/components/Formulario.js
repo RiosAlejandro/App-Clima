@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-const Formulario = ({busqueda, setBusqueda}) => {
+const Formulario = ({busqueda, setBusqueda, guardarConsultar}) => {
 
   const { pais, ciudad } = busqueda;
 
@@ -22,6 +22,8 @@ const Formulario = ({busqueda, setBusqueda}) => {
       mostrarAlerta();
       return;
     }
+
+    guardarConsultar(true);
   };
 
   const mostrarAlerta = () => {
@@ -57,16 +59,16 @@ const Formulario = ({busqueda, setBusqueda}) => {
           <TextInput
             value={ciudad}
             style={styles.input}
-            onChangeText={ciudadSeleccionada => setBusqueda(...busqueda, ciudadSeleccionada)}
+            onChangeText={ciudadSeleccionada => setBusqueda({...busqueda, ciudadSeleccionada})}
             placeholder="Ciudad"
-            placeholderTextColor="666"
+            placeholderTextColor="#666"
           />
         </View>
         <View>
           <Picker
             selectedValue={pais}
-            itemStyle={{ height: 120, backgroundColor: '#fff' }}
-            onValueChange={ paisSeleccionado => setBusqueda(...busqueda, paisSeleccionado)}
+            style={{ height: 120, backgroundColor: '#fff' }}
+            onValueChange={ paisSeleccionado => setBusqueda({...busqueda, paisSeleccionado})}
           >
             <Picker.Item label="-- Seleccione un país --" value="" />
             <Picker.Item label="Argentina" value="AR" />
