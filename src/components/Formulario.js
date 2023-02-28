@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import {
@@ -10,8 +11,11 @@ import {
   Alert,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import useClima from '../hooks/useClima';
 
-const Formulario = ({busqueda, setBusqueda, guardarConsultar}) => {
+const Formulario = () => {
+
+  const {busqueda, setBusqueda, consumirApi} = useClima();
 
   const { pais, ciudad } = busqueda;
 
@@ -23,13 +27,13 @@ const Formulario = ({busqueda, setBusqueda, guardarConsultar}) => {
       return;
     }
 
-    guardarConsultar(true);
+    consumirApi(busqueda);
   };
 
   const mostrarAlerta = () => {
     Alert.alert(
       'Error',
-      'Agrega una ciudad y país para la Búsqueda'
+      'Agrega una ciudad y país para la Búsqueda',
       [{ text: 'Entendido' }]
     );
   };
@@ -59,7 +63,7 @@ const Formulario = ({busqueda, setBusqueda, guardarConsultar}) => {
           <TextInput
             value={ciudad}
             style={styles.input}
-            onChangeText={ciudadSeleccionada => setBusqueda({...busqueda, ciudadSeleccionada})}
+            onChangeText={ciudad => setBusqueda({...busqueda, ciudad})}
             placeholder="Ciudad"
             placeholderTextColor="#666"
           />
@@ -68,7 +72,7 @@ const Formulario = ({busqueda, setBusqueda, guardarConsultar}) => {
           <Picker
             selectedValue={pais}
             style={{ height: 120, backgroundColor: '#fff' }}
-            onValueChange={ paisSeleccionado => setBusqueda({...busqueda, paisSeleccionado})}
+            onValueChange={pais => setBusqueda({...busqueda, pais})}
           >
             <Picker.Item label="-- Seleccione un país --" value="" />
             <Picker.Item label="Argentina" value="AR" />

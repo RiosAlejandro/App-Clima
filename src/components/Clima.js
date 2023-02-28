@@ -2,10 +2,13 @@
 /* eslint-disable radix */
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import useClima from '../hooks/useClima';
 
-const Clima = ({resultadoObtenido}) => {
+const Clima = () => {
 
-  const { name, main } = resultadoObtenido;
+  const {resultado} = useClima();
+
+  const { name, main } = resultado;
 
   const Kelvin = 273.15;
 
@@ -22,7 +25,7 @@ const Clima = ({resultadoObtenido}) => {
         </Text>
         <Image
           style={{width: 66, height: 58}}
-          source={{uri: `http://openweathermap.org/img/w/${resultadoObtenido.weather[0].icon}.png`}}
+          source={{uri: `http://openweathermap.org/img/w/${resultado.weather[0].icon}.png`}}
         />
       </Text>
 
